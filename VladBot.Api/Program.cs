@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using VladBot.BLL;
+using VladBot.BLL.Configuration;
 using VladBot.BLL.Services;
-using VladBot.Core.Configuration;
 using VladBot.Core.Repositories;
 using VladBot.Core.Services;
 using VladBot.DAL.Data;
@@ -24,8 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUpdateHandler<Update>, UpdateHandler>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddSingleton(builder.Configuration.GetSection("Links")
-    .Get<Configuration>());
+builder.Services.Configure<Configuration>(builder.Configuration.GetSection("Links"));
 
 builder.Services.AddHttpClient("tgwebhook")
     .AddTypedClient<ITelegramBotClient>(httpClient

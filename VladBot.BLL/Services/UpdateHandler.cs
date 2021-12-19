@@ -4,7 +4,6 @@ using Telegram.Bot.Types.Enums;
 using VladBot.BLL.CallbackQueryCommands;
 using VladBot.BLL.Interfaces;
 using VladBot.BLL.TextCommands;
-using VladBot.Core.Configuration;
 using VladBot.Core.Services;
 
 namespace VladBot.BLL.Services;
@@ -12,13 +11,13 @@ namespace VladBot.BLL.Services;
 public class UpdateHandler : IUpdateHandler<Update>
 {
     private readonly IUserService _userService;
-    private readonly Configuration configuration;
+    private readonly Configuration.Configuration _configuration;
     private readonly ITelegramBotClient _botClient;
 
-    public UpdateHandler(IUserService userService, Configuration configuration, ITelegramBotClient botClient)
+    public UpdateHandler(IUserService userService, Configuration.Configuration configuration, ITelegramBotClient botClient)
     {
         _userService = userService;
-        this.configuration = configuration;
+        _configuration = configuration;
         _botClient = botClient;
     }
 
@@ -75,13 +74,13 @@ public class UpdateHandler : IUpdateHandler<Update>
         var user = _userService.Get(updateCallbackQuery.From!.Id);
         var command = CallbackQueryCommands.FirstOrDefault(command => command.Compare(updateCallbackQuery, user));
         if (command != null)
-            await command.Execute(_botClient, user, updateCallbackQuery, _userService, configuration);
+            await command.Execute(_botClient, user, updateCallbackQuery, _userService, _configuration);
     }
 
     private async Task BotOnMessageReceived(Message updateMessage)
     {
         var user = _userService.Get(updateMessage.From!.Id);
         var command = TextCommands.FirstOrDefault(command => command.Compare(updateMessage, user));
-        if (command != null) await command.Execute(_botClient, user, updateMessage, _userService, configuration);
+        if (command != null) await command.Execute(_botClient, user, updateMessage, _userService, _configuration);
     }
 }

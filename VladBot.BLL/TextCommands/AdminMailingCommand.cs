@@ -3,7 +3,6 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using VladBot.BLL.Interfaces;
-using VladBot.Core.Configuration;
 using VladBot.Core.Enums;
 using VladBot.Core.Services;
 using User = VladBot.Core.Models.User;
@@ -14,7 +13,7 @@ public class AdminMailingCommand : ITextCommand
 {
     public async Task Execute(ITelegramBotClient client, Core.Models.User? user, Message message,
         IUserService userService,
-        Configuration configuration)
+        Configuration.Configuration configuration)
     {
         if (user!.State == State.Main)
         {
