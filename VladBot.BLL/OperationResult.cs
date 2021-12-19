@@ -1,0 +1,25 @@
+using VladBot.Core.Interfaces;
+
+namespace VladBot.BLL;
+
+public class OperationResult : IOperationResult
+{
+    public bool Succeeded { get; }
+    public string? ErrorMessage { get; }
+
+    public OperationResult(bool succeeded, string? errorMessage)
+    {
+        Succeeded = succeeded;
+        ErrorMessage = errorMessage;
+    }
+
+    public static OperationResult Ok()
+    {
+        return new OperationResult(true, null);
+    }
+
+    public static OperationResult Fail(string message)
+    {
+        return new OperationResult(false, message);
+    }
+}
