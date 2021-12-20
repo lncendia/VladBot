@@ -26,9 +26,9 @@ public class UpdateHandler : IUpdateHandler<Update>
     private static readonly List<ITextCommand> TextCommands = new()
     {
         new StartCommand(),
-        new SendKeyboardCommand(),
         new AdminMailingCommand(),
         new EnterMessageToMailingCommand(),
+        new SendKeyboardCommand(),
     };
 
     private static readonly List<ICallbackQueryCommand> CallbackQueryCommands = new()

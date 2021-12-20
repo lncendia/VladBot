@@ -18,7 +18,7 @@ public class CheckQueryCommand : ICallbackQueryCommand
         var results = await Task.WhenAll(tasks);
         if (results.Any(result => result.Status == ChatMemberStatus.Left))
         {
-            await client.AnswerCallbackQueryAsync(query.Id, "Вы не подисались на все каналы.");
+            await client.AnswerCallbackQueryAsync(query.Id, "Вы не подисались на все каналы.", true);
             return;
         }
 

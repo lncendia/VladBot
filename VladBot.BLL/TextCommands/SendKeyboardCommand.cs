@@ -16,13 +16,13 @@ public class SendKeyboardCommand : ITextCommand
         Core.Configuration.Configuration configuration)
     {
         await client.SendTextMessageAsync(message.Chat.Id,
-            "Подпишитесь на каналы.",
+            "Подпишитесь на каналы!",
             replyMarkup: CategoryKeyboard.Create(configuration.Channels.Select(x => x.FollowLink).ToList()));
 
     }
 
     public bool Compare(Message message, User? user)
     {
-        return message.Type == MessageType.Text && user!.State == State.Main && message.Text!.StartsWith("/start");
+        return message.Type == MessageType.Text && user!.State == State.Main;
     }
 }
