@@ -2,6 +2,7 @@
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using VladBot.BLL.Interfaces;
+using VladBot.BLL.Keyboards.UserKeyboard;
 using VladBot.Core.Enums;
 using VladBot.Core.Services;
 using User = VladBot.Core.Models.User;
@@ -12,11 +13,12 @@ public class SendKeyboardCommand : ITextCommand
 {
     public async Task Execute(ITelegramBotClient client, User? user, Message message,
         IUserService userService,
-        Configuration.Configuration configuration)
+        Core.Configuration.Configuration configuration)
     {
-        await client.SendTextMessageAsync(user.Id,
-            "Подпишитесь на каналы.");
-        //replyMarkup: Keyboards.UserKeyboard.CategoryKeyboard.Create(configuration.Usernames));
+        await client.SendTextMessageAsync(message.Chat.Id,
+            "Подпишитесь на каналы.",
+            replyMarkup: CategoryKeyboard.Create(configuration.Channels.Select(x => x.FollowLink).ToList()));
+
     }
 
     public bool Compare(Message message, User? user)

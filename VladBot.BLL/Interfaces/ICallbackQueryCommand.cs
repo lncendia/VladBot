@@ -7,6 +7,6 @@ namespace VladBot.BLL.Interfaces;
 
 public interface ICallbackQueryCommand
 {
-    public Task Execute(ITelegramBotClient client, User? user, CallbackQuery query, IUserService userService, Configuration.Configuration configuration);
+    public Task Execute(ITelegramBotClient client, User? user, CallbackQuery query, IUserService userService, Core.Configuration.Configuration configuration);
     public bool Compare(CallbackQuery query, User? user);
 }

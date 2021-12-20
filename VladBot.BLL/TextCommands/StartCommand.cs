@@ -12,7 +12,7 @@ public class StartCommand : ITextCommand
 {
     public async Task Execute(ITelegramBotClient client, User? user, Message message,
         IUserService userService,
-        Configuration.Configuration configuration)
+        Core.Configuration.Configuration configuration)
     {
         user = new User {Id = message.From!.Id};
         var result = userService.Add(user);
@@ -21,7 +21,7 @@ public class StartCommand : ITextCommand
             await client.SendStickerAsync(message.From.Id,
                 new InputOnlineFile("CAACAgIAAxkBAAK_HGAQINBHw7QKWWRV4LsEU4nNBxQ3AAKZAAPZvGoabgceWN53_gIeBA"));
             await client.SendTextMessageAsync(message.Chat.Id,
-                "Добро пожаловать.\nПодпишитесь на аккаунты.",
+                "Добро пожаловать.\nПодпишитесь на каналы.",
                 replyMarkup: CategoryKeyboard.Create(configuration.Channels.Select(x => x.FollowLink).ToList()));
         }
         else

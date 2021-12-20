@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -11,14 +12,15 @@ namespace VladBot.BLL.Services;
 public class UpdateHandler : IUpdateHandler<Update>
 {
     private readonly IUserService _userService;
-    private readonly Configuration.Configuration _configuration;
+    private readonly Core.Configuration.Configuration _configuration;
     private readonly ITelegramBotClient _botClient;
-
-    public UpdateHandler(IUserService userService, Configuration.Configuration configuration, ITelegramBotClient botClient)
+    private readonly ILogger<UpdateHandler> _logger;
+    public UpdateHandler(IUserService userService, Core.Configuration.Configuration configuration, ITelegramBotClient botClient, ILogger<UpdateHandler> logger)
     {
         _userService = userService;
         _configuration = configuration;
         _botClient = botClient;
+        _logger = logger;
     }
 
     private static readonly List<ITextCommand> TextCommands = new()
@@ -61,7 +63,7 @@ public class UpdateHandler : IUpdateHandler<Update>
 
     public void HandleErrorAsync(Update update, Exception ex)
     {
-        Console.WriteLine($"Ошибка у {update.Id}: {ex.Message}\n {ex.StackTrace}");
+        _logger.LogError(ex, "Update id: {Id}", update.Id);
     }
 
     private Task UnknownUpdateHandlerAsync(Update update)
@@ -71,7 +73,7 @@ public class UpdateHandler : IUpdateHandler<Update>
 
     private async Task BotOnCallbackQueryReceived(CallbackQuery updateCallbackQuery)
     {
-        var user = _userService.Get(updateCallbackQuery.From!.Id);
+        var user = _userService.Get(updateCallbackQuery.From.Id);
         var command = CallbackQueryCommands.FirstOrDefault(command => command.Compare(updateCallbackQuery, user));
         if (command != null)
             await command.Execute(_botClient, user, updateCallbackQuery, _userService, _configuration);

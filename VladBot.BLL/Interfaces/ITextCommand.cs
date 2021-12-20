@@ -7,6 +7,6 @@ namespace VladBot.BLL.Interfaces;
 
 public interface ITextCommand
 {
-    public Task Execute(ITelegramBotClient client, User? user, Message message, IUserService userService, Configuration.Configuration configuration);
+    public Task Execute(ITelegramBotClient client, User? user, Message message, IUserService userService, Core.Configuration.Configuration configuration);
     public bool Compare(Message message, User? user);
 }

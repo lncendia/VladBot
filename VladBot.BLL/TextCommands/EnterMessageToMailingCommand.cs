@@ -12,7 +12,7 @@ public class EnterMessageToMailingCommand : ITextCommand
 {
     public async Task Execute(ITelegramBotClient client, User? user, Message message,
         IUserService userService,
-        Configuration.Configuration configuration)
+        Core.Configuration.Configuration configuration)
     {
         var users = userService.GetAll();
         switch (message.Type)

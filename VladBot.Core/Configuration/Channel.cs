@@ -1,4 +1,6 @@
-namespace VladBot.BLL.Configuration;
+using System.ComponentModel.DataAnnotations;
+
+namespace VladBot.Core.Configuration;
 
 public class Channel
 {

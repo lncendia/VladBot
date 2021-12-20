@@ -1,10 +1,9 @@
-using System.Net;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using VladBot.BLL;
-using VladBot.BLL.Configuration;
 using VladBot.BLL.Services;
+using VladBot.Core.Configuration;
 using VladBot.Core.Repositories;
 using VladBot.Core.Services;
 using VladBot.DAL.Data;
@@ -24,7 +23,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUpdateHandler<Update>, UpdateHandler>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.Configure<Configuration>(builder.Configuration.GetSection("Links"));
+builder.Services.AddOptions<Configuration>().Bind(builder.Configuration.GetSection("Links"))
+    .ValidateDataAnnotations();
+builder.Services.AddScoped(sp => sp.GetService<IOptions<Configuration>>()!.Value);
 
 builder.Services.AddHttpClient("tgwebhook")
     .AddTypedClient<ITelegramBotClient>(httpClient
@@ -38,8 +39,13 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(name: "tgwebhook",
+        builder.Configuration["BotConfiguration:Token"],
+        new {controller = "Bot", action = "Post"});
+    endpoints.MapControllers();
+});
 
 app.Run();
