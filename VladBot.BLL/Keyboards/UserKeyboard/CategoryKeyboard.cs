@@ -8,8 +8,12 @@ public static class CategoryKeyboard
     public static InlineKeyboardMarkup Create(List<string> usernames)
     {
         var list = new List<List<InlineKeyboardButton>>();
-        list.AddRange(usernames.Take(10).Select(link => new List<InlineKeyboardButton>
-            {InlineKeyboardButton.WithUrl("✅ Подписаться", link)}));
+        for (int i = 0; i < Math.Min(usernames.Count, 10); i++)
+        {
+            list.Add(new List<InlineKeyboardButton>
+                {InlineKeyboardButton.WithUrl($"{i+1}. Подписаться ✅", usernames[i])});
+        }
+
         list.Add(new List<InlineKeyboardButton> {InlineKeyboardButton.WithCallbackData("🔎 Проверить", "check")});
         return new InlineKeyboardMarkup(list);
     }

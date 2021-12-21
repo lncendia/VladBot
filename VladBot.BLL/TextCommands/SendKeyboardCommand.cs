@@ -16,9 +16,8 @@ public class SendKeyboardCommand : ITextCommand
         Core.Configuration.Configuration configuration)
     {
         await client.SendTextMessageAsync(message.Chat.Id,
-            "Подпишитесь на каналы!",
+            "⛔ЧТОБЫ ПОСМОТРЕТЬ ФИЛЬМЫ ИЗ ТИКТОКА\nНУЖНО ПОДПИСАТЬСЯ НА КАНАЛЫ НИЖЕ⬇\n\nподпишись на каналы и нажми 🔍 ПРОВЕРИТЬ!",
             replyMarkup: CategoryKeyboard.Create(configuration.Channels.Select(x => x.FollowLink).ToList()));
-
     }
 
     public bool Compare(Message message, User? user)
