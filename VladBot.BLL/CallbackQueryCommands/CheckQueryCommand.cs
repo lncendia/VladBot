@@ -22,7 +22,7 @@ public class CheckQueryCommand : ICallbackQueryCommand
             return;
         }
 
-        await client.EditMessageTextAsync(user!.Id, query.Message!.MessageId, "Успешно.",
+        await client.EditMessageTextAsync(user!.Id, query.Message!.MessageId, "✅ ДОСТУП ОТКРЫТ\n\nВсе фильмы загрузили на наш основной канал 👇",
             replyMarkup: CategoryKeyboard.FinalLink(configuration.FinalChanel.FollowLink));
     }
 

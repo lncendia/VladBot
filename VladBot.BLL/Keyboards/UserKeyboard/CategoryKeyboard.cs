@@ -20,6 +20,6 @@ public static class CategoryKeyboard
 
     public static InlineKeyboardMarkup FinalLink(string link)
     {
-        return new InlineKeyboardMarkup(InlineKeyboardButton.WithUrl("Перейти", link));
+        return new InlineKeyboardMarkup(InlineKeyboardButton.WithUrl("Перейти ✅", link));
     }
 }
