@@ -7,7 +7,7 @@ public class OperationResult : IOperationResult
     public bool Succeeded { get; }
     public string? ErrorMessage { get; }
 
-    public OperationResult(bool succeeded, string? errorMessage)
+    private OperationResult(bool succeeded, string? errorMessage)
     {
         Succeeded = succeeded;
         ErrorMessage = errorMessage;

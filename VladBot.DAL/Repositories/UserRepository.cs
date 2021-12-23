@@ -39,4 +39,15 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.FirstOrDefault(user => user.Id == id);
     }
+
+    public int GetCount(DateTime lowerUtcTime, DateTime upperUtcTime)
+    {
+        return _context.Users.Count(user =>
+            user.RegistrationDate >= lowerUtcTime && user.RegistrationDate <= upperUtcTime);
+    }
+
+    public int GetAllCount()
+    {
+        return _context.Users.Count();
+    }
 }

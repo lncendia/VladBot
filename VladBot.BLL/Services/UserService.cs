@@ -54,4 +54,30 @@ public class UserService : IUserService
             return OperationResult.Fail(ex.Message);
         }
     }
+
+    public IResult<int> GetCount(DateTime lowerTime, DateTime upperTime, TimeZoneInfo cZoneInfo)
+    {
+        try
+        {
+            var lower = TimeZoneInfo.ConvertTimeToUtc(lowerTime, cZoneInfo);
+            var upper = TimeZoneInfo.ConvertTimeToUtc(upperTime, cZoneInfo);
+            return Result<int>.Ok(_userRepository.GetCount(lower, upper));
+        }
+        catch (Exception ex)
+        {
+            return Result<int>.Fail(ex.Message);
+        }
+    }
+
+    public IResult<int> GetAllCount()
+    {
+        try
+        {
+            return Result<int>.Ok(_userRepository.GetAllCount());
+        }
+        catch (Exception ex)
+        {
+            return Result<int>.Fail(ex.Message);
+        }
+    }
 }

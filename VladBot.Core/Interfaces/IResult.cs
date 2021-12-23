@@ -4,6 +4,6 @@ namespace VladBot.Core.Interfaces
     {
         public bool Succeeded { get; }
         public string? ErrorMessage { get; }
-        public T Value { get; }
+        public T? Value { get; }
     }
 }

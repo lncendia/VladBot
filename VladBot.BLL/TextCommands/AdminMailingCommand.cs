@@ -17,7 +17,6 @@ public class AdminMailingCommand : ITextCommand
     {
         if (user!.State == State.Main)
         {
-            await client.SendTextMessageAsync(user.Id, "Добро пожаловать в панель рассылки.");
             await client.SendTextMessageAsync(user.Id,
                 "Введите сообщение, которое хотите разослать.");
             user.State = State.EnterMessageToMailing;

@@ -8,6 +8,8 @@ public class User
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
     public long Id { get; set; }
-    public State State { get; set; }
-    public bool IsAdmin { get; set; }
+
+    public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
+    public State State { get; set; } = State.Main;
+    public bool IsAdmin { get; set; } = false;
 }

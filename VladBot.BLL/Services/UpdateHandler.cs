@@ -27,6 +27,7 @@ public class UpdateHandler : IUpdateHandler<Update>
     {
         new StartCommand(),
         new AdminMailingCommand(),
+        new AdminStatsCommand(),
         new EnterMessageToMailingCommand(),
         new SendKeyboardCommand(),
     };
@@ -34,6 +35,7 @@ public class UpdateHandler : IUpdateHandler<Update>
     private static readonly List<ICallbackQueryCommand> CallbackQueryCommands = new()
     {
         new CheckQueryCommand(),
+        new StatsQueryCommand()
     };
 
     public async Task HandleAsync(Update update)
