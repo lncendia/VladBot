@@ -80,4 +80,30 @@ public class UserService : IUserService
             return Result<int>.Fail(ex.Message);
         }
     }
+
+    public IOperationResult SubscribeChannel(User user, Channel channel)
+    {
+        try
+        {
+            _userRepository.SubscribeChannel(user, channel);
+            return OperationResult.Ok();
+        }
+        catch (Exception ex)
+        {
+            return OperationResult.Fail(ex.Message);
+        }
+    }
+
+    public IOperationResult UnsubscribeChannel(User user, Channel channel)
+    {
+        try
+        {
+            _userRepository.UnsubscribeChannel(user, channel);
+            return OperationResult.Ok();
+        }
+        catch (Exception ex)
+        {
+            return OperationResult.Fail(ex.Message);
+        }
+    }
 }

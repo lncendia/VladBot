@@ -10,7 +10,7 @@ namespace VladBot.BLL.CallbackQueryCommands;
 
 public class StatsQueryCommand : ICallbackQueryCommand
 {
-    public async Task Execute(ITelegramBotClient client, User? user, CallbackQuery query, IUserService userService,
+    public async Task Execute(ITelegramBotClient client, User? user, CallbackQuery query, IUserService userService, IChannelService channelService,
         Core.Configuration.Configuration configuration)
     {
         var count = query.Data![6..] switch

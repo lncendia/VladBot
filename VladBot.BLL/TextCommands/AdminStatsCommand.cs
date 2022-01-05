@@ -13,7 +13,7 @@ namespace VladBot.BLL.TextCommands;
 public class AdminStatsCommand : ITextCommand
 {
     public async Task Execute(ITelegramBotClient client, User? user, Message message,
-        IUserService userService,
+        IUserService userService,IChannelService channelService, 
         Core.Configuration.Configuration configuration)
     {
         await client.SendTextMessageAsync(user!.Id,

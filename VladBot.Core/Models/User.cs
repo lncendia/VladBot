@@ -12,4 +12,5 @@ public class User
     public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
     public State State { get; set; } = State.Main;
     public bool IsAdmin { get; set; } = false;
+    public List<Channel>? SubscribedChannels { get; set; }
 }

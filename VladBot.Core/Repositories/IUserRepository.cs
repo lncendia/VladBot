@@ -7,4 +7,6 @@ public interface IUserRepository : IRepository<User>
 {
     public int GetCount(DateTime lowerUtcTime, DateTime upperUtcTime);
     public int GetAllCount();
+    public void SubscribeChannel(User user, Channel channel);
+    public void UnsubscribeChannel(User user, Channel channel);
 }

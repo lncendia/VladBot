@@ -12,12 +12,12 @@ namespace VladBot.BLL.TextCommands;
 public class SendKeyboardCommand : ITextCommand
 {
     public async Task Execute(ITelegramBotClient client, User? user, Message message,
-        IUserService userService,
+        IUserService userService, IChannelService channelService,
         Core.Configuration.Configuration configuration)
     {
         await client.SendTextMessageAsync(message.Chat.Id,
             "⛔ЧТОБЫ ПОСМОТРЕТЬ ФИЛЬМЫ ИЗ ТИКТОКА\nНУЖНО ПОДПИСАТЬСЯ НА КАНАЛЫ НИЖЕ⬇\n\nподпишись на каналы и нажми 🔍 ПРОВЕРИТЬ!",
-            replyMarkup: CategoryKeyboard.Create(configuration.Channels.Select(x => x.FollowLink).ToList()));
+            replyMarkup: CategoryKeyboard.Create(channelService.GetAll().Select(x => x.FollowLink).ToList()));
     }
 
     public bool Compare(Message message, User? user)

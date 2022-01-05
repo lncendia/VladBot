@@ -50,4 +50,18 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.Count();
     }
+
+    public void SubscribeChannel(User user, Channel channel)
+    {
+        _context.Entry(user).Collection(user1 => user1.SubscribedChannels!).Load();
+        user.SubscribedChannels!.Add(channel);
+        Update(user);
+    }
+
+    public void UnsubscribeChannel(User user, Channel channel)
+    {
+        _context.Entry(user).Collection(user1 => user1.SubscribedChannels!).Load();
+        user.SubscribedChannels!.Remove(channel);
+        Update(user);
+    }
 }

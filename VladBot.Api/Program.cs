@@ -23,6 +23,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUpdateHandler<Update>, UpdateHandler>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IChannelService, ChannelService>();
+builder.Services.AddScoped<IChannelRepository, ChannelRepository>();
 builder.Services.AddOptions<Configuration>().Bind(builder.Configuration.GetSection("Links"))
     .ValidateDataAnnotations();
 builder.Services.AddScoped(sp => sp.GetService<IOptions<Configuration>>()!.Value);
@@ -42,7 +44,7 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(name: "tgwebhook",
+    endpoints.MapControllerRoute("tgwebhook",
         builder.Configuration["BotConfiguration:Token"],
         new {controller = "Bot", action = "Post"});
     endpoints.MapControllers();

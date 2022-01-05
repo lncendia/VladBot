@@ -9,5 +9,7 @@ public class ApplicationDbContext : DbContext
         : base(options)
     {
     }
-    public DbSet<User> Users { get; set; }
+
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Channel> Channels { get; set; } = null!;
 }

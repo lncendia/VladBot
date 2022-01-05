@@ -11,7 +11,7 @@ namespace VladBot.BLL.TextCommands;
 public class EnterMessageToMailingCommand : ITextCommand
 {
     public async Task Execute(ITelegramBotClient client, User? user, Message message,
-        IUserService userService,
+        IUserService userService,IChannelService channelService, 
         Core.Configuration.Configuration configuration)
     {
         var users = userService.GetAll();
@@ -111,6 +111,7 @@ public class EnterMessageToMailingCommand : ITextCommand
             "Сообщение было успешно отправлено. Вы в главном меню.");
         user.State = State.Main;
         userService.Update(user);
+        GC.Collect();
     }
 
     public bool Compare(Message message, User? user)

@@ -11,7 +11,7 @@ namespace VladBot.BLL.TextCommands;
 public class StartCommand : ITextCommand
 {
     public async Task Execute(ITelegramBotClient client, User? user, Message message,
-        IUserService userService,
+        IUserService userService, IChannelService channelService,
         Core.Configuration.Configuration configuration)
     {
         user = new User {Id = message.From!.Id};
@@ -22,7 +22,7 @@ public class StartCommand : ITextCommand
                 new InputOnlineFile("CAACAgIAAxkBAAEDh2ZhwNXpm0Vikt-5J5yPWTbDPeUwvwAC-BIAAkJOWUoAAXOIe2mqiM0jBA"));
             await client.SendTextMessageAsync(message.Chat.Id,
                 "Здравствуйте!🙊\nЕсли хотите найти тот самый фильм из ТикТока😱\nПодпишись на каналы внизу ⬇ после нажми 🔍 Проверить\nИ переходи в канал с фильмом😉",
-                replyMarkup: CategoryKeyboard.Create(configuration.Channels.Select(x => x.FollowLink).ToList()));
+                replyMarkup: CategoryKeyboard.Create(channelService.GetAll().Select(x => x.FollowLink).ToList()));
         }
         else
         {
